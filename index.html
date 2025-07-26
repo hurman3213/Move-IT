@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Move It - Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Blur background circles -->
+    <div class="blur-circle green"></div>
+    <div class="blur-circle blue"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Move It</div>
+                <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#download">Download</a>
+                <a href="#signup">Sign Up</a>
+                <a href="#contact">Contact Us</a>
+                <a href="#login">Login</a>
+                </div>
+                <button id="darkModeToggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode" style="background:#2e8b57; border:none; color:white; padding:8px 12px; border-radius:6px; cursor:pointer; font-weight:600; margin-left: 15px;">
+                    Dark Mode
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero container" id="hero">
+        <div class="hero-text">
+            <h1>Move your things easily and quickly</h1>
+            <p>Move It helps you move your belongings through trusted services. Download the app for free and start moving today!</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn" aria-label="Download on the App Store">App Store</a>
+                <a href="#" class="btn" aria-label="Download on Google Play">Google Play</a>
+            </div>
+        </div>
+        <div class="hero-image" aria-label="Placeholder for hero image">
+            <!-- TODO: Add hero image here -->
+            Hero Image Placeholder
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Features</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon" aria-label="Placeholder for feature 1 icon">
+                    <!-- TODO: Add feature 1 icon/image here -->
+                    Truck Icon
+                </div>
+                <div class="feature-title">Fast & Reliable</div>
+                <div class="feature-desc">Get your items moved quickly with trusted service providers.</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon" aria-label="Placeholder for feature 2 icon">
+                    <!-- TODO: Add feature 2 icon/image here -->
+                    Car Icon
+                </div>
+                <div class="feature-title">Easy to Use</div>
+                <div class="feature-desc">User-friendly app interface to book your moves effortlessly.</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon" aria-label="Placeholder for feature 3 icon">
+                    <!-- TODO: Add feature 3 icon/image here -->
+                    Secure
+                </div>
+                <div class="feature-title">Secure Payments</div>
+                <div class="feature-desc">Safe and secure payment options for peace of mind.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2>About Move It</h2>
+        <ul>
+            <li>Move It is dedicated to providing seamless and reliable moving services to make your life easier. Our trusted network of service providers ensures your belongings are handled with care and delivered on time.</li>
+            <li>Our user-friendly app allows you to book moves effortlessly, track your shipments, and make secure payments with peace of mind.</li>
+        </ul>
+    </section>
+
+    <section class="cta" id="download">
+        <h2>Ready to Move?</h2>
+        <p>Download Move It for free and start moving your belongings today!</p>
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="#" class="btn" aria-label="Download on the App Store">App Store</a>
+            <a href="#" class="btn" aria-label="Download on Google Play">Google Play</a>
+        </div>
+    </section>
+
+    <section class="auth container" id="signup" style="padding-bottom: 60px;">
+        <h2>Sign Up</h2>
+        <p>Join Move It today and enjoy seamless moving services.</p>
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="#" class="btn">Sign Up</a>
+            <a href="#" class="btn">Login</a>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <p>Have questions or need assistance? Reach out to our support team anytime.</p>
+        <p>Email: TAHARandi@gmail.com</p>
+        <p>Phone: CHARO MERE LORE TE</p>
+    </section>
+
+    <footer>
+        &copy; 2025 Move It. All rights reserved.
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM fully loaded and parsed');
+            const toggleButton = document.getElementById('darkModeToggle');
+            if (!toggleButton) {
+                console.error('Dark mode toggle button not found');
+                return;
+            }
+            toggleButton.addEventListener('click', () => {
+                console.log('Dark mode toggle clicked');
+                document.body.classList.toggle('dark-mode');
+                if(document.body.classList.contains('dark-mode')) {
+                    toggleButton.textContent = 'Light Mode';
+                    toggleButton.style.backgroundColor = '#555';
+                } else {
+                    toggleButton.textContent = 'Dark Mode';
+                    toggleButton.style.backgroundColor = '#2e8b57';
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureItems = document.querySelectorAll('.feature-item');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            featureItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const featureItems = document.querySelectorAll('.feature-item');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -100px 0px' });
+
+            featureItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
