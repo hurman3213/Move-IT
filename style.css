@@ -576,3 +576,39 @@ body.dark-mode .glass-card .btn:hover {
         white-space: nowrap;
     }
 }
+
+@media (max-width: 768px) {
+    nav {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "logo darkModeToggle"
+            "navLinks navLinks";
+        gap: 10px;
+        height: auto;
+        align-items: center;
+    }
+
+    .logo {
+        grid-area: logo;
+        margin-bottom: 0;
+    }
+
+    #darkModeToggle {
+        grid-area: darkModeToggle;
+        justify-self: end;
+        margin: 0;
+    }
+
+    .nav-links {
+        grid-area: navLinks;
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+}
