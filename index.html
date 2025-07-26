@@ -129,39 +129,32 @@
             });
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const featureItems = document.querySelectorAll('.feature-item');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+            gsap.registerPlugin(ScrollTrigger);
+            const animateItems = gsap.utils.toArray('.feature-item, .auth, .about, #contact, #signup');
+            animateItems.forEach((item, i) => {
+                let delayTime = i * 0.3;
+                if(item.id === 'contact') {
+                    delayTime = 0.1; // reduce delay for contact section
+                }
+                gsap.fromTo(item, 
+                    {autoAlpha: 0, y: 50}, 
+                    {
+                        duration: 1.5,
+                        autoAlpha: 1,
+                        y: 0,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 95%',
+                            toggleActions: 'play reverse play reverse',
+                        },
+                        delay: delayTime
                     }
-                });
-            }, { threshold: 0.1 });
-
-            featureItems.forEach(item => {
-                observer.observe(item);
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const featureItems = document.querySelectorAll('.feature-item');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { rootMargin: '0px 0px -100px 0px' });
-
-            featureItems.forEach(item => {
-                observer.observe(item);
+                );
             });
         });
     </script>

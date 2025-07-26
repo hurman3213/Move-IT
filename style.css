@@ -432,37 +432,37 @@ footer {
         white-space: normal;
         overflow: visible;
         text-overflow: clip;
-        padding: 10px 15px;
+        padding: clamp(8px, 2vw, 15px);
     }
     body {
-        padding-top: 60px;
+        padding-top: clamp(50px, 10vw, 60px);
     }
     .hero {
         flex-direction: column;
-        padding-top: 20px;
-        padding-bottom: 40px;
+        padding-top: clamp(15px, 5vw, 20px);
+        padding-bottom: clamp(30px, 10vw, 40px);
     }
     .hero-text, .hero-image {
         max-width: 100%;
         flex: 1 1 100%;
     }
     .hero-text h1 {
-        font-size: 2.2rem;
-        margin-bottom: 20px;
+        font-size: clamp(1.5rem, 5vw, 2.2rem);
+        margin-bottom: clamp(15px, 5vw, 20px);
     }
     .hero-text p {
-        font-size: 1rem;
-        margin-bottom: 30px;
+        font-size: clamp(0.8rem, 3vw, 1rem);
+        margin-bottom: clamp(20px, 5vw, 30px);
     }
     .feature-list, .testimonial-list {
         flex-direction: column;
         align-items: center;
-        gap: 25px;
+        gap: clamp(15px, 5vw, 25px);
     }
     .feature-item, .testimonial-item {
         max-width: 100%;
         box-sizing: border-box;
-        padding: 15px;
+        padding: clamp(10px, 5vw, 15px);
         overflow-wrap: break-word;
         word-wrap: break-word;
         hyphens: auto;
@@ -470,33 +470,48 @@ footer {
     .nav-links {
         flex-direction: row;
         flex-wrap: nowrap;
-        gap: 8px;
+        gap: clamp(3px, 2vw, 8px);
         width: 100%;
-        justify-content: center;
+        justify-content: flex-start;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        padding-left: clamp(5px, 3vw, 10px);
+    }
+    .nav-links a {
+        padding: clamp(5px, 2vw, 8px) clamp(5px, 3vw, 10px);
+        white-space: nowrap;
+        font-size: clamp(0.7rem, 3vw, 0.9rem);
     }
     header nav {
         height: auto;
-        padding: 0 10px;
+        padding: 0 clamp(5px, 3vw, 10px);
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
     }
+    .logo {
+        font-size: clamp(1.2rem, 5vw, 1.5rem);
+        flex-shrink: 0;
+    }
+    #darkModeToggle {
+        padding: clamp(5px, 2vw, 8px) clamp(5px, 3vw, 10px);
+        font-size: clamp(0.7rem, 3vw, 0.9rem);
+        flex-shrink: 0;
+    }
     .hero-buttons {
         flex-direction: column;
-        gap: 15px;
+        gap: clamp(10px, 5vw, 15px);
         width: 100%;
     }
     .btn {
         width: 100%;
         text-align: center;
-        font-size: 1rem;
-        padding: 12px 0;
+        font-size: clamp(0.8rem, 3vw, 1rem);
+        padding: clamp(8px, 3vw, 12px) 0;
     }
     .about, .contact, .cta, .auth {
-        padding: 30px 15px;
-        margin: 30px 5px;
+        padding: clamp(15px, 5vw, 30px) clamp(10px, 5vw, 15px);
+        margin: clamp(15px, 5vw, 30px) clamp(5px, 3vw, 10px);
         max-width: 100%;
     }
 }
