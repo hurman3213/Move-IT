@@ -561,3 +561,18 @@ body.dark-mode .glass-card .btn:hover {
         font-size: 1.1rem;
     }
 }
+
+@media (max-width: 1024px) {
+    /* Make nav-links horizontally scrollable on mobile and tablets */
+    .nav-links {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 15px;
+    }
+
+    .nav-links a {
+        display: inline-block;
+        white-space: nowrap;
+    }
+}
