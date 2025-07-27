@@ -2,7 +2,9 @@
 
 <!-- AI Chatbot Widget -->
 <div id="ai-chatbot-widget" class="ai-chatbot-widget">
-  <button id="ai-chatbot-btn" aria-label="Open AI Assistant">💬</button>
+  <button id="ai-chatbot-btn" aria-label="Open AI Assistant" style="padding:0; background:none; border:none; box-shadow:none;">
+    <video src="icon.mp4" autoplay loop muted playsinline style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; display: block;"></video>
+  </button>
   <div id="ai-chatbot-menu" class="ai-chatbot-menu">
     <div class="ai-chatbot-header">
       <span>AI Assistant</span>
@@ -34,20 +36,45 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #232d23 60%, #39ff14 120%);
-  border: 2px solid #7fff00;
-  box-shadow: 0 0 16px 2px #39ff14, 0 8px 32px 0 rgba(50,205,50,0.25);
-  color: #7fff00;
-  font-size: 2rem;
+  position: relative;
+  background: none;
+  border: none;
+  box-shadow: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: box-shadow 0.2s, background 0.2s;
+  outline: none;
 }
-#ai-chatbot-btn:hover {
-  box-shadow: 0 0 24px 4px #7fff00, 0 8px 32px 0 rgba(50,205,50,0.35);
-  background: linear-gradient(135deg, #39ff14 60%, #232d23 120%);
+#ai-chatbot-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #7fff00 0%, #39ff14 60%, transparent 100%);
+  opacity: 0.55;
+  filter: blur(3px);
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, filter 0.3s;
+}
+#ai-chatbot-btn:hover::before {
+  animation: ai-glow-pulse 2.2s infinite alternate;
+}
+@keyframes ai-glow-pulse {
+  0% { opacity: 0.55; filter: blur(3px); }
+  100% { opacity: 0.85; filter: blur(3px); }
+}
+/* Removed empty #ai-chatbot-btn:hover ruleset */
+#ai-chatbot-btn video {
+  box-shadow: 0 0 3px 1px #39ff14, 0 2px 3px 0 rgba(50,205,50,0.18);
+  border-radius: 50%;
+  z-index: 1;
 }
 .ai-chatbot-menu {
   display: none;
@@ -129,18 +156,19 @@ body.dark-mode .ai-chatbot-message {
   word-break: break-word;
   background: rgba(50,205,50,0.13);
   color: #e0e0e0;
-  box-shadow: 0 2px 8px #39ff1433, 0 0 4px #7fff0033;
+  box-shadow: 0 1px 3px #39ff1433, 0 0 3px #7fff0033;
 }
   .ai-chatbot-message.bot {
     align-self: flex-start;
     background: rgba(127,255,0,0.18);
     color: #ffffff;
     text-shadow: none;
+    box-shadow: 0 1px 3px #39ff1433, 0 0 3px #7fff0033;
   }
-  body.dark-mode .ai-chatbot-message.bot {
-    color: #7fff00;
-    text-shadow: 0 0 6px #39ff14, 0 0 2px #7fff00;
-  }
+body.dark-mode .ai-chatbot-message.bot {
+  color: #7fff00;
+  text-shadow: 0 0 3px #39ff14, 0 0 2px #7fff00;
+}
 .ai-chatbot-message.user {
   align-self: flex-end;
   background: rgba(44,44,44,0.28);
@@ -229,14 +257,41 @@ function botReply(userText) {
 }
 
 // Show widget after 4 seconds
+
+// Track if user interacted with the chatbot during auto-popup
+let chatbotAutoPopupActive = false;
+let chatbotUserInteracted = false;
+
 setTimeout(() => {
   chatbotWidget.style.display = 'flex';
   chatbotBtn.style.display = 'flex';
   chatbotMenu.classList.remove('open');
   // Auto-greeting
   chatbotMenu.classList.add('open');
-  addChatbotMessage('Hello! Need help moving something?', 'bot');
-  setTimeout(() => chatbotMenu.classList.remove('open'), 3500);
+  addChatbotMessage("Hello! 👋 I'm MoveEase AI – need help finding a service?", 'bot');
+  chatbotAutoPopupActive = true;
+  chatbotUserInteracted = false;
+  // Listen for user interaction during auto-popup
+  function userInteracted() {
+    if (chatbotAutoPopupActive) chatbotUserInteracted = true;
+  }
+  chatbotMenu.addEventListener('mouseenter', userInteracted);
+  chatbotMenu.addEventListener('mousedown', userInteracted);
+  chatbotMenu.addEventListener('touchstart', userInteracted);
+  chatbotBtn.addEventListener('mousedown', userInteracted);
+  chatbotBtn.addEventListener('touchstart', userInteracted);
+  setTimeout(() => {
+    chatbotAutoPopupActive = false;
+    if (!chatbotUserInteracted) {
+      chatbotMenu.classList.remove('open');
+    }
+    // Clean up listeners
+    chatbotMenu.removeEventListener('mouseenter', userInteracted);
+    chatbotMenu.removeEventListener('mousedown', userInteracted);
+    chatbotMenu.removeEventListener('touchstart', userInteracted);
+    chatbotBtn.removeEventListener('mousedown', userInteracted);
+    chatbotBtn.removeEventListener('touchstart', userInteracted);
+  }, 3500);
 }, 4000);
 
 // Open chat on button click
@@ -347,22 +402,22 @@ chatbotForm.addEventListener('submit', function(e) {
         <div class="feature-list">
             <div class="feature-item">
     <script src="particles-init.js"></script>
-                <div class="feature-icon" aria-label="Placeholder for feature 1 icon">
-                    <img src="truck.png" alt="Truck Icon" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;" />
+                <div class="feature-icon" aria-label="Placeholder for feature 1 video">
+                    <video src="truck.mp4" autoplay loop muted playsinline style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; background: #111;"></video>
                 </div>
                 <div class="feature-title">Fast & Reliable</div>
                 <div class="feature-desc">Get your items moved quickly with trusted service providers.</div>
             </div>
             <div class="feature-item">
-                <div class="feature-icon" aria-label="Placeholder for feature 2 icon">
-                    <img src="car.png" alt="Car Icon" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;" />
+                <div class="feature-icon" aria-label="Placeholder for feature 2 video">
+                    <video src="car.mp4" autoplay loop muted playsinline style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; background: #111;"></video>
                 </div>
                 <div class="feature-title">Easy to Use</div>
                 <div class="feature-desc">User-friendly app interface to book your moves effortlessly.</div>
             </div>
             <div class="feature-item">
-                <div class="feature-icon" aria-label="Placeholder for feature 3 icon">
-                    <img src="secure.png" alt="Secure Icon" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;" />
+                <div class="feature-icon" aria-label="Placeholder for feature 3 video">
+                    <video src="secure.mp4" autoplay loop muted playsinline style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; background: #111;"></video>
                 </div>
                 <div class="feature-title">Secure Payments</div>
                 <div class="feature-desc">Safe and secure payment options for peace of mind.</div>
@@ -404,7 +459,45 @@ chatbotForm.addEventListener('submit', function(e) {
     </section>
 
     <footer>
-        &copy; 2025 MoveEase. All rights reserved.
+        <div class="footer-social-links">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7fff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+          </a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7fff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+        <div class="footer-copyright">&copy; 2025 MoveEase. All rights reserved.</div>
+<style>
+.footer-social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 6px;
+}
+.footer-social-links a {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.15s;
+}
+.footer-social-links a:active,
+.footer-social-links a:focus,
+.footer-social-links a:hover {
+  transform: scale(1.13);
+}
+.footer-copyright {
+  text-align: center;
+  font-size: 1em;
+  color: inherit;
+}
+@media (max-width: 600px) {
+  .footer-social-links {
+    margin-bottom: 13vw;
+    gap: 28px;
+  }
+}
+</style>
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
