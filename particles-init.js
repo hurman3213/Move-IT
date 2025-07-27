@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (window.particlesJS) {
     particlesJS('particles-js', {
       particles: {
-        number: { value: 60, density: { enable: true, value_area: 800 } },
+        number: { value: 80, density: { enable: true, value_area: 800 } },
         color: { value: ['#7fff00', '#39ff14', '#32cd32'] },
         shape: { type: 'circle' },
         opacity: { value: 0.5, random: true },
