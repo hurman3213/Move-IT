@@ -269,6 +269,7 @@ chatbotForm.addEventListener('submit', function(e) {
 });
 </script>
 </body>
+<script src="auto-darkmode.js"></script>
 <script>
   // Loader overlay logic
   window.addEventListener('DOMContentLoaded', function() {
@@ -483,3 +484,28 @@ document.querySelectorAll('.tilt-card').forEach(function(card) {
 </script>
 </body>
 </html>
+<script>
+// Show/hide nav-links scrollbar on mobile interaction
+document.addEventListener('DOMContentLoaded', function() {
+  var navLinks = document.querySelector('.nav-links');
+  if (!navLinks) return;
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+  function showScrollbar() {
+    if (isMobile()) navLinks.classList.add('show-scrollbar');
+  }
+  function hideScrollbar() {
+    if (isMobile()) navLinks.classList.remove('show-scrollbar');
+  }
+  navLinks.addEventListener('mouseenter', showScrollbar);
+  navLinks.addEventListener('mouseleave', hideScrollbar);
+  navLinks.addEventListener('focusin', showScrollbar);
+  navLinks.addEventListener('focusout', hideScrollbar);
+  navLinks.addEventListener('touchstart', showScrollbar);
+  navLinks.addEventListener('touchend', hideScrollbar);
+  window.addEventListener('resize', function() {
+    if (!isMobile()) navLinks.classList.remove('show-scrollbar');
+  });
+});
+</script>

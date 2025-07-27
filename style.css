@@ -10,6 +10,16 @@ body {
   scroll-behavior: smooth;
   position: relative;
   overflow-x: hidden;
+  -webkit-user-select: none;  /* Chrome, Safari, and Opera */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* Internet Explorer and Edge */
+  user-select: none;          /* Standard syntax */
+  -ms-overflow-style: none;   /* IE and Edge */
+  scrollbar-width: none;      /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Dark mode styles */
@@ -331,6 +341,24 @@ nav {
 .feature-icon img:hover {
   animation: glowPulse 1.5s infinite;
   border-radius: 50%;
+    /* Hide scrollbar by default, show on hover/focus/active */
+    .nav-links::-webkit-scrollbar {
+        height: 0px;
+        background: transparent;
+        transition: height 0.2s;
+    }
+    .nav-links.show-scrollbar::-webkit-scrollbar {
+        height: 8px;
+        background: #e0ffe0;
+    }
+    .nav-links.show-scrollbar::-webkit-scrollbar-thumb {
+        background: #32cd32;
+        border-radius: 8px;
+    }
+    .nav-links.show-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #32cd32 #e0ffe0;
+    }
 }
 
 .feature-title {
