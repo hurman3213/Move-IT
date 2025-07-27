@@ -1,0 +1,64 @@
+/* From Uiverse.io by alexruix */
+.loader {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.7s;
+}
+.loader-inner {
+  position: relative;
+  width: 120px;
+  height: 90px;
+  margin: 0 auto;
+}
+/* Neon green loader ball and bar */
+.loader-inner:before {
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  left: 50px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: #7fff00;
+  box-shadow: 0 0 24px 6px #39ff14, 0 0 40px 10px #7fff00;
+  animation: loading-bounce 0.5s ease-in-out infinite alternate;
+}
+.loader-inner:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 7px;
+  width: 45px;
+  border-radius: 4px;
+  box-shadow: 0 5px 0 #fff, -35px 50px 0 #7fff00, -70px 95px 0 #39ff14;
+  animation: loading-step 1s ease-in-out infinite;
+}
+@keyframes loading-bounce {
+  0% { transform: scale(1, 0.7); }
+  40% { transform: scale(0.8, 1.2); }
+  60% { transform: scale(1, 1); }
+  100% { bottom: 140px; }
+}
+@keyframes loading-step {
+  0% {
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0),
+                0 10px 0 #fff,
+                -35px 50px 0 #7fff00,
+                -70px 90px 0 #39ff14;
+  }
+  100% {
+    box-shadow: 0 10px 0 #fff,
+                -35px 50px 0 #7fff00,
+                -70px 90px 0 #39ff14,
+                -70px 90px 0 rgba(0, 0, 0, 0);
+  }
+}

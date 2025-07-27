@@ -163,6 +163,11 @@ nav {
 
 #darkModeToggle:hover {
   background-color: #28a428;
+  animation: glowPulse 1.5s infinite;
+}
+
+.nav-links a:hover {
+  animation: glowPulse 1.5s infinite;
 }
 
 /* Hero Section */
@@ -309,6 +314,23 @@ nav {
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 5px 15px rgba(50, 205, 50, 0.3);
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px 2px rgba(50, 205, 50, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px 6px rgba(50, 205, 50, 1);
+  }
+  100% {
+    box-shadow: 0 0 5px 2px rgba(50, 205, 50, 0.5);
+  }
+}
+
+.feature-icon img:hover {
+  animation: glowPulse 1.5s infinite;
+  border-radius: 50%;
 }
 
 .feature-title {

@@ -1,3 +1,287 @@
+</main>
+
+<!-- AI Chatbot Widget -->
+<div id="ai-chatbot-widget" class="ai-chatbot-widget">
+  <button id="ai-chatbot-btn" aria-label="Open AI Assistant">💬</button>
+  <div id="ai-chatbot-menu" class="ai-chatbot-menu">
+    <div class="ai-chatbot-header">
+      <span>AI Assistant</span>
+      <button id="ai-chatbot-close" aria-label="Close Chatbot">✕</button>
+    </div>
+    <div class="ai-chatbot-body">
+      <div class="ai-chatbot-messages" id="ai-chatbot-messages">
+        <!-- Messages will appear here -->
+      </div>
+      <form id="ai-chatbot-form" autocomplete="off">
+        <input type="text" id="ai-chatbot-input" placeholder="Type your message..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+.ai-chatbot-widget {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+#ai-chatbot-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #232d23 60%, #39ff14 120%);
+  border: 2px solid #7fff00;
+  box-shadow: 0 0 16px 2px #39ff14, 0 8px 32px 0 rgba(50,205,50,0.25);
+  color: #7fff00;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+#ai-chatbot-btn:hover {
+  box-shadow: 0 0 24px 4px #7fff00, 0 8px 32px 0 rgba(50,205,50,0.35);
+  background: linear-gradient(135deg, #39ff14 60%, #232d23 120%);
+}
+.ai-chatbot-menu {
+  display: none;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 320px;
+  max-width: 90vw;
+  background: rgba(30, 30, 30, 0.97);
+  border: 2px solid #7fff00;
+  border-radius: 18px;
+  box-shadow: 0 0 16px 2px #39ff14, 0 8px 32px 0 rgba(50,205,50,0.25);
+  font-family: 'Poppins', sans-serif;
+  color: #121212;
+  overflow: hidden;
+  flex-direction: column;
+  z-index: 10000;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: opacity 0.2s;
+}
+
+body.dark-mode .ai-chatbot-menu {
+  color: #7fff00;
+}
+
+.ai-chatbot-message {
+  /* ...existing styles... */
+  color: #121212;
+}
+body.dark-mode .ai-chatbot-message {
+  color: #7fff00;
+}
+.ai-chatbot-menu.open {
+  display: flex;
+}
+.ai-chatbot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: rgba(44, 44, 44, 0.7);
+  border-bottom: 1px solid #7fff00;
+  font-weight: 600;
+  color: #7fff00;
+}
+.ai-chatbot-header button {
+  background: transparent;
+  border: none;
+  color: #7fff00;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.ai-chatbot-header button:hover {
+  color: #39ff14;
+}
+.ai-chatbot-body {
+  display: flex;
+  flex-direction: column;
+  height: 340px;
+  background: rgba(30,30,30,0.85);
+  transition: opacity 0.3s;
+  opacity: 1;
+}
+.ai-chatbot-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 18px 14px 8px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ai-chatbot-message {
+  padding: 10px 16px;
+  border-radius: 14px;
+  max-width: 90%;
+  font-size: 1rem;
+  word-break: break-word;
+  background: rgba(50,205,50,0.13);
+  color: #e0e0e0;
+  box-shadow: 0 2px 8px #39ff1433, 0 0 4px #7fff0033;
+}
+  .ai-chatbot-message.bot {
+    align-self: flex-start;
+    background: rgba(127,255,0,0.18);
+    color: #ffffff;
+    text-shadow: none;
+  }
+  body.dark-mode .ai-chatbot-message.bot {
+    color: #7fff00;
+    text-shadow: 0 0 6px #39ff14, 0 0 2px #7fff00;
+  }
+.ai-chatbot-message.user {
+  align-self: flex-end;
+  background: rgba(44,44,44,0.28);
+  color: #e0e0e0;
+  border: 1px solid #7fff00;
+}
+#ai-chatbot-form {
+  display: flex;
+  gap: 8px;
+  padding: 10px 14px 14px 14px;
+  background: transparent;
+}
+#ai-chatbot-input {
+  flex: 1 1 auto;
+  border-radius: 10px;
+  border: none;
+  padding: 10px 12px;
+  font-size: 1rem;
+  background: rgba(44,44,44,0.28);
+  color: #7fff00;
+  border: 1px solid #7fff00;
+  outline: none;
+  transition: background 0.2s;
+}
+#ai-chatbot-input:focus {
+  background: rgba(44,44,44,0.28);
+}
+#ai-chatbot-form button[type="submit"] {
+  background: #7fff00;
+  color: #121212;
+  box-shadow: 0 0 8px #7fff00;
+  border: none;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#ai-chatbot-form button[type="submit"]:hover {
+  background: #39ff14;
+}
+@media (max-width: 600px) {
+  .ai-chatbot-widget {
+    right: 8px;
+    bottom: 8px;
+    width: 98vw;
+    max-width: 98vw;
+    align-items: flex-end;
+  }
+  .ai-chatbot-menu {
+    width: 98vw;
+    max-width: 98vw;
+    right: 0;
+    left: unset;
+  }
+}
+</style>
+
+<script>
+// AI Chatbot Widget Logic
+const chatbotWidget = document.getElementById('ai-chatbot-widget');
+const chatbotBtn = document.getElementById('ai-chatbot-btn');
+const chatbotMenu = document.getElementById('ai-chatbot-menu');
+const chatbotClose = document.getElementById('ai-chatbot-close');
+const chatbotMessages = document.getElementById('ai-chatbot-messages');
+const chatbotForm = document.getElementById('ai-chatbot-form');
+const chatbotInput = document.getElementById('ai-chatbot-input');
+
+function addChatbotMessage(text, sender = 'bot') {
+  const msg = document.createElement('div');
+  msg.className = 'ai-chatbot-message ' + sender;
+  msg.textContent = text;
+  chatbotMessages.appendChild(msg);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+function botReply(userText) {
+  const t = userText.trim().toLowerCase();
+  let reply = "I'm still learning! Try asking something else 😅";
+  if (t.includes('book')) reply = "You can book your move easily using our form!";
+  else if (t.includes('track')) reply = "Tracking will be available once your move is booked.";
+  else if (t.includes('services')) reply = "We offer home, office, and cargo moving solutions.";
+  else if (t.includes('hi') || t.includes('hello')) reply = "Hi there! 👋 How can I help you today?";
+  setTimeout(() => addChatbotMessage(reply, 'bot'), 500);
+}
+
+// Show widget after 4 seconds
+setTimeout(() => {
+  chatbotWidget.style.display = 'flex';
+  chatbotBtn.style.display = 'flex';
+  chatbotMenu.classList.remove('open');
+  // Auto-greeting
+  chatbotMenu.classList.add('open');
+  addChatbotMessage('Hello! Need help moving something?', 'bot');
+  setTimeout(() => chatbotMenu.classList.remove('open'), 3500);
+}, 4000);
+
+// Open chat on button click
+chatbotBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  chatbotMenu.classList.add('open');
+  setTimeout(() => chatbotInput.focus(), 200);
+});
+// Close chat
+chatbotClose.addEventListener('click', (e) => {
+  e.stopPropagation();
+  chatbotMenu.classList.remove('open');
+});
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+  if (chatbotMenu.classList.contains('open')) {
+    if (!chatbotWidget.contains(e.target)) {
+      chatbotMenu.classList.remove('open');
+    }
+  }
+});
+// Handle form submit
+chatbotForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const val = chatbotInput.value.trim();
+  if (!val) return;
+  addChatbotMessage(val, 'user');
+  chatbotInput.value = '';
+  botReply(val);
+});
+</script>
+</body>
+<script>
+  // Loader overlay logic
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      const loader = document.getElementById('site-loader');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 700);
+      }
+    }, 2500); // Show loader for 2.5s
+  });
+</script>
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +290,13 @@
     <title>Move Ease - Landing Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="loader.css" />
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head  >
 <body>
+    <div id="site-loader" class="loader">
+      <div class="loader-inner"></div>
+    </div>
     <div id="particles-js" aria-hidden="true" style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 0;"></div>
     <!-- Blur background circles -->
     <div class="blur-circle green"></div>
@@ -56,10 +344,11 @@
         </div>
     </section>
 
-    <section class="features" id="features">
+    <section class="features tilt-card" id="features">
         <h2>Features</h2>
         <div class="feature-list">
             <div class="feature-item">
+    <script src="particles-init.js"></script>
                 <div class="feature-icon" aria-label="Placeholder for feature 1 icon">
                     <img src="truck.png" alt="Truck Icon" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;" />
                 </div>
@@ -83,7 +372,7 @@
         </div>
     </section>
 
-    <section class="about" id="about">
+    <section class="about tilt-card" id="about">
         <h2>About MoveEase</h2>
         <ul>
             <li>Move Ease is dedicated to providing seamless and reliable moving services to make your life easier. Our trusted network of service providers ensures your belongings are handled with care and delivered on time.</li>
@@ -91,7 +380,7 @@
         </ul>
     </section>
 
-    <section class="cta" id="download">
+    <section class="cta tilt-card" id="download">
         <h2>Ready to Move?</h2>
         <p>Download Move Ease for free and start moving your belongings today!</p>
         <div class="hero-buttons" style="justify-content: center;">
@@ -100,7 +389,7 @@
         </div>
     </section>
 
-    <section class="auth container" id="signup" style="padding-bottom: 60px;">
+    <section class="auth container tilt-card" id="signup" style="padding-bottom: 60px;">
         <h2>Sign Up</h2>
         <p>Join Move Ease today and enjoy seamless moving services.</p>
         <div class="hero-buttons" style="justify-content: center;">
@@ -109,7 +398,7 @@
         </div>
     </section>
 
-    <section class="contact" id="contact">
+    <section class="contact tilt-card" id="contact">
         <h2>Contact Us</h2>
         <p>Have questions or need assistance? Reach out to our support team anytime.</p>
         <p>Email: TAHARandi@gmail.com</p>
@@ -170,5 +459,27 @@
             });
         });
     </script>
+<script>
+// 3D Tilt Card Effect for all .tilt-card elements
+document.querySelectorAll('.tilt-card').forEach(function(card) {
+  card.addEventListener('mousemove', function(e) {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * 10;
+    const rotateY = ((x - centerX) / centerX) * 10;
+    card.style.transform = `perspective(900px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    card.style.transition = 'transform 0.18s cubic-bezier(.03,.98,.52,.99)';
+    card.classList.add('tilted');
+  });
+  card.addEventListener('mouseleave', function() {
+    card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+    card.style.transition = 'transform 0.35s cubic-bezier(.03,.98,.52,.99)';
+    card.classList.remove('tilted');
+  });
+});
+</script>
 </body>
 </html>
