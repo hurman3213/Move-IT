@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
   const particles = [];
-  const particleCount = 400;
+  const particleCount = 200;
   const mouse = { x: null, y: null };
   let attractMode = false;
 
