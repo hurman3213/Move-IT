@@ -2,11 +2,20 @@
 
 // Loader overlay logic
 window.addEventListener('DOMContentLoaded', function() {
+  // Hide scrollbar while loader is visible
+  document.body.style.overflow = 'hidden';
   setTimeout(function() {
     const loader = document.getElementById('site-loader');
     if (loader) {
       loader.style.opacity = '0';
-      setTimeout(() => loader.remove(), 700);
+      setTimeout(() => {
+        loader.remove();
+        // Restore scrollbar after loader is gone
+        document.body.style.overflow = '';
+      }, 700);
+    } else {
+      // Fallback: restore scrollbar if loader not found
+      document.body.style.overflow = '';
     }
   }, 2500); // Show loader for 2.5s
 });
@@ -33,21 +42,22 @@ window.addEventListener('DOMContentLoaded', () => {
     gsap.registerPlugin(ScrollTrigger);
     const animateItems = gsap.utils.toArray('.feature-item, .auth, .about, #contact, #signup');
     animateItems.forEach((item, i) => {
-      let delayTime = i * 0.3;
+      // Reduce delay for faster response and use a smoother ease
+      let delayTime = i * 0.12;
       if(item.id === 'contact') {
-        delayTime = 0.1; // reduce delay for contact section
+        delayTime = 0.05;
       }
       gsap.fromTo(item, 
-        {autoAlpha: 0, y: 50}, 
+        {autoAlpha: 0, y: 40}, 
         {
-          duration: 1,
+          duration: 0.7,
           autoAlpha: 1,
           y: 0,
-          ease: 'power2.out',
+          ease: 'power1.out',
           scrollTrigger: {
             trigger: item,
-            start: 'top 95%',
-            toggleActions: 'play reverse play reverse',
+            start: 'top 98%', // animate a bit earlier
+            toggleActions: 'play none none reverse',
           },
           delay: delayTime
         }
